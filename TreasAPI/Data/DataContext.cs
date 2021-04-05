@@ -10,5 +10,6 @@ namespace TreasAPI.Data
         }
 
         public DbSet<AppUser> Users { get; set; }
+        public DbSet<Checke> Checkes { get; set; }
     }
 }
