@@ -2,7 +2,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CheckeService } from 'src/app/_services/checke.service';
-
+import { NgxNumToWordsService, SUPPORTED_LANGUAGE } from 'ngx-num-to-words';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checke-detail',
@@ -11,16 +12,24 @@ import { CheckeService } from 'src/app/_services/checke.service';
 })
 export class CheckeDetailComponent implements OnInit {
   @Output() cancelChecke = new EventEmitter();
-  model: any = {};
   checkeForm: FormGroup;
   maxDate: Date;
+  validationErrors: string[] = [];
 
-  constructor(private checkeService: CheckeService, private toastr: ToastrService, private fb: FormBuilder) { }
+  numberInWords!: string;
+  lang: SUPPORTED_LANGUAGE = 'en';
+
+  constructor(
+    private checkeService: CheckeService, 
+    private toastr: ToastrService, 
+    private fb: FormBuilder,
+    public ngxNumToWordsService: NgxNumToWordsService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.initializeForm();
     this.maxDate = new Date();
-    this.maxDate.setFullYear(this.maxDate.getFullYear() -18)
+    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18)
   }
 
   initializeForm() {
@@ -34,17 +43,21 @@ export class CheckeDetailComponent implements OnInit {
 
   create() {
     this.checkeService.addChecke(this.checkeForm.value).subscribe(response => {
-      console.log(response);
-      this.toastr.success('Successfully created.', 'Success');
-      this.cancelChecke.emit(false)
+      this.cancelChecke.emit(false);
     }, error => {
-      console.log(error);
-      this.toastr.error(error.error);
+      this.validationErrors = error;
     })
   }
 
   cancel() {
-    this.cancelChecke.emit(false)
+    this.cancelChecke.emit(false);
   }
-  
+
+  wordsToNumber(){
+    let myNumber : number = + this.checkeForm.controls.amount.value
+    if(myNumber > 0)
+    {
+      return this.ngxNumToWordsService.inWords(myNumber, this.lang).toUpperCase() + ' PESOS ONLY'
+    }
+  }
 }

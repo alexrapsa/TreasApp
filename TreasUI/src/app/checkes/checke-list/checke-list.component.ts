@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Checke } from 'src/app/_models/checke';
 import { CheckeService } from 'src/app/_services/checke.service';
 
@@ -8,20 +9,12 @@ import { CheckeService } from 'src/app/_services/checke.service';
   styleUrls: ['./checke-list.component.css']
 })
 export class CheckeListComponent implements OnInit {
-  checkes: Checke[];
+  checkes$: Observable<Checke[]>;
   createMode: boolean = false;
   constructor(private checkeService: CheckeService) { }
 
   ngOnInit(): void {
-    this.loadCheckes();
-    
-  }
-
-  loadCheckes() {
-    this.checkeService.getCheckes().subscribe(checkes => {
-      this.checkes = checkes;
-      console.log(this.checkes)
-    });
+    this.checkes$ = this.checkeService.getCheckes();
   }
 
   createToggle() {
@@ -30,7 +23,5 @@ export class CheckeListComponent implements OnInit {
 
   cancelCreateMode(event: boolean) {
     this.createMode = event;
-
-    this.loadCheckes();
   }
 }

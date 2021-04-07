@@ -1,7 +1,7 @@
 <div class="row">
     <div class="container mt-5">
         <div *ngIf="!createMode">
-            <button (click)="createToggle()" class="btn btn-primary"><i class="fa fa-plus-circle mr-1" aria-hidden="true"></i>Create Checke</button>
+            <button (click)="createToggle()" class="btn btn-primary"><i class="fa fa-plus-circle mr-1" aria-hidden="true"></i>Create Check</button>
         </div>
 
         <div *ngIf="createMode" class="container">
@@ -16,7 +16,7 @@
             <table class="table table-hover mt-5">
                 <thead>
                     <tr class="table-success">
-                        <th scope="col">Checke Number</th>
+                        <th scope="col">Check Number</th>
                         <th scope="col">Pay To</th>
                         <th scope="col">Amount</th>
                         <th scope="col">Date Issued</th>
@@ -24,7 +24,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let checke of checkes">
+                    <tr *ngFor="let checke of checkes$ | async">
                         <th scope="row">{{checke.checkNumber}}</th>
                         <td>{{checke.payTo}}</td>
                         <td>{{checke.amount}}</td>
