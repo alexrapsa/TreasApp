@@ -1,1 +1,43 @@
-<p>checke-list works!</p>
+<div class="row">
+    <div class="container mt-5">
+        <div *ngIf="!createMode">
+            <button (click)="createToggle()" class="btn btn-primary"><i class="fa fa-plus-circle mr-1" aria-hidden="true"></i>Create Checke</button>
+        </div>
+
+        <div *ngIf="createMode" class="container">
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <app-checke-detail (cancelChecke)="cancelCreateMode($event)"></app-checke-detail>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="!createMode">
+            <table class="table table-hover mt-5">
+                <thead>
+                    <tr class="table-success">
+                        <th scope="col">Checke Number</th>
+                        <th scope="col">Pay To</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Date Issued</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let checke of checkes">
+                        <th scope="row">{{checke.checkNumber}}</th>
+                        <td>{{checke.payTo}}</td>
+                        <td>{{checke.amount}}</td>
+                        <td>{{checke.dateIssued | date:"MM/dd/yy"}}</td>
+                        <td>
+                            <i class="fa fa-print mr-2" aria-hidden="true"></i>
+                            <i class="fa fa-trash-o mr-2" aria-hidden="true"></i>
+                            <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

@@ -1,1 +1,16 @@
-<p>checke-detail works!</p>
+<form  [formGroup]='checkeForm' (ngSubmit)="create()" autocomplete="off">
+    <h2 class="text-center text-primary">Checke Details</h2>
+    <hr>
+    <app-text-input [formControl]='checkeForm.controls["checkNumber"]' [label]='"Checke Number"'></app-text-input>
+    <app-text-input [formControl]='checkeForm.controls["payTo"]' [label]='"Pay To"'></app-text-input>
+    <app-text-input [formControl]='checkeForm.controls["amount"]' [label]='"Amount"' [type]='"number"'></app-text-input>
+    <app-date-input [formControl]='checkeForm.controls["dateIssued"]' [label]='"Date Issued"'></app-date-input>
+   
+    <div class="form-grou text-center">
+        <button class="btn btn-success mr-2" type="submit">Submit</button>
+        <button class="btn btn-outline-warning mr-2" (click)="cancel()" type="button">Cancel</button>
+    </div>
+</form>
+
+<p>Form value: {{checkeForm.value | json}}</p>
+<p>Form status: {{checkeForm.status | json}}</p>

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TreasAPI.Dto;
 using TreasAPI.Entities;
 
 namespace TreasAPI.Interfaces
@@ -9,8 +10,9 @@ namespace TreasAPI.Interfaces
         
         void Update(Checke checke);
         Task<bool> SaveAllAsync();
-        Task<IEnumerable<Checke>> GetCheckesAsync();
+        Task<IEnumerable<CheckeDto>> GetCheckesAsync();
         Task<Checke> GetCheckeByIdAsync(int id);
-        Task<Checke> GetCheckeByCheckeNumberAsync(string checkeNumber);
+        Task<CheckeDto> GetCheckeByCheckeNumberAsync(string checkeNumber);
+        Task<Checke> AddCheckeAsync(Checke checke);
     }
 }

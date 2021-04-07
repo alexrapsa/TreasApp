@@ -10,6 +10,7 @@ namespace TreasAPI.Helpers
         {
             CreateMap<AppUser, MemberDto>();
             CreateMap<Checke, CheckeDto>();
+            CreateMap<CheckeDto, Checke>();
         }
     }
 }
