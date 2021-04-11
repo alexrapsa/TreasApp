@@ -1,0 +1,64 @@
+.check {
+  width: 864px; 
+  height: 288px;
+  /* background-color: aqua; */
+  position: relative;
+}
+
+.dateIssued {
+  /* width: 100px;  */
+  height: auto;
+  /* background-color:blue; */
+  position: absolute;
+  top: 25px;
+  right: 60px;
+}
+
+.payTo {
+  width: 100%; 
+  height: auto;
+  /* background-color:red; */
+  position: absolute;
+  top: 75px;
+  right: 0;
+  padding-left: 75px;
+}
+.amount {
+  width: auto; 
+  height: auto;
+  /* background-color: green; */
+  position: absolute;
+  top: 75px;
+  right: 0;
+  padding-left: 70px;
+  padding-right: 90px;
+}
+
+.words {
+  width: 100%; 
+  height: auto;
+  /* background-color: indianred; */
+  position: absolute;
+  top: 100px;
+  right: 0;
+  padding-left: 75px;
+}
+
+.mayor {
+  width: auto; 
+  height: auto;
+  /* background-color: lawngreen; */
+  position: absolute;
+  top: 150px;
+  right: 100px;
+  padding-left: 75px;
+}
+.treas {
+  width: auto; 
+  height: auto;
+  /* background-color: indigo; */
+  position: absolute;
+  top: 150px;
+  right: 300px;
+  padding-left: 75px;
+}

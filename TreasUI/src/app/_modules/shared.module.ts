@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
@@ -14,12 +15,14 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     }),
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    ModalModule.forRoot()
   ],
   exports: [
     BsDropdownModule,
     ToastrModule,
-    BsDatepickerModule
+    BsDatepickerModule,
+    ModalModule
   ]
 })
 export class SharedModule { }

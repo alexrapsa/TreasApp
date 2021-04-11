@@ -23,6 +23,11 @@ import { DateInputComponent } from './_forms/date-input/date-input.component';
 import { NgxNumToWordsModule } from 'ngx-num-to-words'; 
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { CheckeEditComponent } from './checkes/checke-edit/checke-edit.component';
+import { CheckePrintComponent } from './checkes/checke-print/checke-print.component';
+import { NgxPrintModule } from 'ngx-print';
+import { CheckeReceivedComponent } from './checkes/checke-received/checke-received.component';
 
 
 @NgModule({
@@ -38,7 +43,10 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
     NotFoundComponent,
     ServerErrorComponent,
     TextInputComponent,
-    DateInputComponent
+    DateInputComponent,
+    CheckeEditComponent,
+    CheckePrintComponent,
+    CheckeReceivedComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +57,9 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
     SharedModule,
     ReactiveFormsModule,
     NgxNumToWordsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    InfiniteScrollModule,
+    NgxPrintModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

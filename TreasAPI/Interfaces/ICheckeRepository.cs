@@ -12,7 +12,7 @@ namespace TreasAPI.Interfaces
         Task<bool> SaveAllAsync();
         Task<IEnumerable<CheckeDto>> GetCheckesAsync();
         Task<Checke> GetCheckeByIdAsync(int id);
-        Task<CheckeDto> GetCheckeByCheckeNumberAsync(string checkeNumber);
+        Task<Checke> GetCheckeByCheckeNumberAsync(string checkeNumber);
         Task<Checke> AddCheckeAsync(Checke checke);
     }
 }

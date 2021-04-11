@@ -32,11 +32,10 @@ namespace TreasAPI.Data
             };
         }
 
-        public async Task<CheckeDto> GetCheckeByCheckeNumberAsync(string checkeNumber)
+        public async Task<Checke> GetCheckeByCheckeNumberAsync(string checkeNumber)
         {
             return await _context.Checkes
                 .Where(x => x.CheckNumber == checkeNumber)
-                .ProjectTo<CheckeDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
             //return await _context.Checkes.SingleOrDefaultAsync(x => x.CheckNumber == checkeNumber);
         }

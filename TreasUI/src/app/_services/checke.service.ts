@@ -15,8 +15,8 @@ export class CheckeService {
   constructor(private http: HttpClient) { }
 
   getCheckes() {
-    if (this.checkes.length > 0) return of(this.checkes);
-    console.log('check service');
+    // if (this.checkes.length > 0) return of(this.checkes);
+    // console.log('check service');
     return this.http.get<Checke[]>(this.baseUrl + 'checkes').pipe(
       map(checkes => {
         this.checkes = checkes;
@@ -39,5 +39,13 @@ export class CheckeService {
         }
       })
     )
+  }
+
+  deleteChecke(checkeNumber) {
+    return this.http.delete(this.baseUrl + 'checkes/' + checkeNumber);
+  }
+
+  updateChecke(checke: Checke) {
+    return this.http.put(this.baseUrl + 'checkes/update', checke);
   }
 }

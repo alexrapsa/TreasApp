@@ -1,0 +1,22 @@
+<div class="container">
+
+    <div class="check" id="print-area">
+        <div class="dateIssued"><span>{{toPrint.dateIssued | date}}</span></div>
+        <div class="payTo"><span>{{toPrint.payTo | uppercase}}</span></div>
+        <div class="amount"><span>{{toPrint.amount}}</span></div>
+        <div class="words"><span>{{toPrint.amountInWords | uppercase}}</span></div>
+        <div class="treas justify-content-center">
+            <span>Rubelyn Cabrera</span><br>
+            <span>City Treasurer</span>
+        </div>
+        <div class="mayor justify-content-center">
+            <span>Nestor L. Alvarez, Ph.D</span><br>
+            <span>City Mayor</span>
+        </div>
+
+    </div>
+    <div class="float-right">
+        <button [useExistingCss]="true" printSectionId="print-area" ngxPrint class="btn btn-primary"><i
+                class="fa fa-print mr-1"></i>Print</button>
+    </div>
+</div>

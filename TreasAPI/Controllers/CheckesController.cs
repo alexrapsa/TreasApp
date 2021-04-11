@@ -35,7 +35,8 @@ namespace TreasAPI.Controllers
         [HttpGet("{checkeNumber}")]
         public async Task<ActionResult<CheckeDto>> GetChecke(string checkeNumber)
         {
-            return await _checkeRepository.GetCheckeByCheckeNumberAsync(checkeNumber);
+            var checke = await _checkeRepository.GetCheckeByCheckeNumberAsync(checkeNumber);
+            return _mapper.Map<CheckeDto>(checke);
         }
 
         [HttpPost("create")]
@@ -52,10 +53,43 @@ namespace TreasAPI.Controllers
             _context.Checkes.Add(checke);
             await _context.SaveChangesAsync();
 
-            return new CheckeDto {
+            return new CheckeDto
+            {
                 CheckNumber = checke.CheckNumber,
-                Amount =checke.Amount
+                Amount = checke.Amount
             };
+        }
+
+        [HttpPut("update")]
+        public async Task<ActionResult> UpdateCheck(CheckeDto checkeDto)
+        {
+            if (!await CheckeExist(checkeDto.CheckNumber)) return NotFound("Check not found");
+
+            var check = await _checkeRepository.GetCheckeByCheckeNumberAsync(checkeDto.CheckNumber);
+            
+             _mapper.Map(checkeDto, check);
+
+            _checkeRepository.Update(check);
+
+            if (await _checkeRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to update user");
+        }
+
+        [HttpDelete("{checkeNumber}")]
+        public async Task<ActionResult<string>> DeleteChecke(string checkeNumber)
+        {
+            var checkeDto = await _checkeRepository.GetCheckeByCheckeNumberAsync(checkeNumber);
+            if (checkeDto != null)
+            {
+                var checke = _mapper.Map<Checke>(checkeDto);
+                _context.Checkes.Remove(checke);
+                await _context.SaveChangesAsync();
+
+                return Ok();
+            }
+            
+            return NotFound("Check not found");
         }
 
         private async Task<bool> CheckeExist(string checkeNumber)

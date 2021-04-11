@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CheckeService } from 'src/app/_services/checke.service';
 import { NgxNumToWordsService, SUPPORTED_LANGUAGE } from 'ngx-num-to-words';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-checke-detail',
@@ -20,8 +21,8 @@ export class CheckeDetailComponent implements OnInit {
   lang: SUPPORTED_LANGUAGE = 'en';
 
   constructor(
-    private checkeService: CheckeService, 
-    private toastr: ToastrService, 
+    private checkeService: CheckeService,
+    private toastr: ToastrService,
     private fb: FormBuilder,
     public ngxNumToWordsService: NgxNumToWordsService,
     private router: Router) { }
@@ -43,9 +44,11 @@ export class CheckeDetailComponent implements OnInit {
 
   create() {
     this.checkeService.addChecke(this.checkeForm.value).subscribe(response => {
-      this.cancelChecke.emit(false);
+      console.log(response);
     }, error => {
       this.validationErrors = error;
+    },() => {
+      this.cancelChecke.emit(false);
     })
   }
 
@@ -53,10 +56,9 @@ export class CheckeDetailComponent implements OnInit {
     this.cancelChecke.emit(false);
   }
 
-  wordsToNumber(){
-    let myNumber : number = + this.checkeForm.controls.amount.value
-    if(myNumber > 0)
-    {
+  wordsToNumber() {
+    let myNumber: number = + this.checkeForm.controls.amount.value
+    if (myNumber > 0) {
       return this.ngxNumToWordsService.inWords(myNumber, this.lang).toUpperCase() + ' PESOS ONLY'
     }
   }

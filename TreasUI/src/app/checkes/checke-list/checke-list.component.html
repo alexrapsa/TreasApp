@@ -1,7 +1,8 @@
 <div class="row">
     <div class="container mt-5">
         <div *ngIf="!createMode">
-            <button (click)="createToggle()" class="btn btn-primary"><i class="fa fa-plus-circle mr-1" aria-hidden="true"></i>Create Check</button>
+            <button (click)="createToggle()" class="btn btn-primary"><i class="fa fa-plus-circle mr-1"
+                    aria-hidden="true"></i>Create Check</button>
         </div>
 
         <div *ngIf="createMode" class="container">
@@ -27,16 +28,45 @@
                     <tr *ngFor="let checke of checkes$ | async">
                         <th scope="row">{{checke.checkNumber}}</th>
                         <td>{{checke.payTo}}</td>
-                        <td>{{checke.amount}}</td>
+                        <td>{{checke.amount | number}}</td>
                         <td>{{checke.dateIssued | date:"MM/dd/yy"}}</td>
                         <td>
-                            <i class="fa fa-print mr-2" aria-hidden="true"></i>
-                            <i class="fa fa-trash-o mr-2" aria-hidden="true"></i>
-                            <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                            <button class="btn" (click)="printCheck(checke.checkNumber)"><i class="fa fa-print"></i></button>
+                            <button class="btn" (click)="openModal(deleteModal, checke.checkNumber)"><i class="fa fa-trash-o"></i></button>
+                            <button class="btn" (click)="openReceiverModal(receivedModal, checke)"><i class="fa fa-paper-plane-o"></i></button>                            
                         </td>
                     </tr>
                 </tbody>
             </table>
+
+            <ng-template #deleteModal>
+                <div class="modal-header">
+                    <h4 class="modal-title pull-left">Do you want to delete this check?</h4>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                <div class="modal-body text-center">
+                    <!-- <p>Do you want to delete this check??</p> -->
+                    <p>Check Number: {{selectedCheckNumber}}</p>
+                    <button type="button" class="btn btn-info mr-1" (click)="confirm()">Confirm</button>
+                    <button type="button" class="btn btn-outline-secondary" (click)="decline()">Close</button>
+                </div>
+            </ng-template>
+
+            <ng-template #receivedModal>
+                <div class="modal-header">
+                    <h4 class="modal-title pull-left">First modal</h4>
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                <div class="modal-body text-center">
+                    <input type="text" class="form-control" id="receiver" placeholder="Receiver">                    
+                    <button type="button" class="btn btn-info mr-1" (click)="confirmReceiver()">Confirm</button>
+                    <button type="button" class="btn btn-outline-secondary" (click)="decline()">Close</button>
+                </div>
+            </ng-template>
         </div>
 
     </div>
