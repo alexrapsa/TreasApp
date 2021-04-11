@@ -1,9 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Checke } from '../_models/checke';
+import { CheckeParams } from '../_models/checkeParams';
+import { PaginatedResult } from '../_models/pagination';
 
 
 @Injectable({
@@ -12,17 +14,16 @@ import { Checke } from '../_models/checke';
 export class CheckeService {
   baseUrl = environment.apiUrl;
   checkes: Checke[] = [];
+
   constructor(private http: HttpClient) { }
 
-  getCheckes() {
-    // if (this.checkes.length > 0) return of(this.checkes);
-    // console.log('check service');
-    return this.http.get<Checke[]>(this.baseUrl + 'checkes').pipe(
-      map(checkes => {
-        this.checkes = checkes;
-        return checkes;
-      })
-    )
+  getCheckes(checkeParams: CheckeParams) {
+    let params = this.getPaginationHeaders(checkeParams.pageNumber, checkeParams.pageSize);
+
+    params = params.append('minDate', checkeParams.minDate.toString());
+    params = params.append('maxDate', checkeParams.maxDate.toString());
+
+    return this.getPaginatedResult<Checke[]>(this.baseUrl + 'checkes', params)
   }
 
   getChecke(checkeNumber) {
@@ -47,5 +48,29 @@ export class CheckeService {
 
   updateChecke(checke: Checke) {
     return this.http.put(this.baseUrl + 'checkes/update', checke);
+  }
+
+  private getPaginatedResult<T>(url, params) {
+    const paginatedResult: PaginatedResult<T> = new PaginatedResult<T>();
+
+    return this.http.get<T>(url, { observe: 'response', params }).pipe(
+      map(response => {
+        paginatedResult.result = response.body;
+        if (response.headers.get('Pagination') !== null) {
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+
+          return paginatedResult;
+        }
+      })
+    );
+  }
+
+  private getPaginationHeaders(pageNumber: number, pageSize: number) {
+    let params = new HttpParams();
+
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());
+    
+    return params;
   }
 }

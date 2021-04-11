@@ -20,15 +20,17 @@
                         <th scope="col">Check Number</th>
                         <th scope="col">Pay To</th>
                         <th scope="col">Amount</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Date Issued</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr *ngFor="let checke of checkes$ | async">
+                <tbody>`
+                    <tr *ngFor="let checke of checkes">
                         <th scope="row">{{checke.checkNumber}}</th>
                         <td>{{checke.payTo}}</td>
                         <td>{{checke.amount | number}}</td>
+                        <td>{{checke.receivedBy}}</td>
                         <td>{{checke.dateIssued | date:"MM/dd/yy"}}</td>
                         <td>
                             <button class="btn" (click)="printCheck(checke.checkNumber)"><i class="fa fa-print"></i></button>
@@ -38,6 +40,20 @@
                     </tr>
                 </tbody>
             </table>
+
+            <div class="d-flex justify-content-center" *ngIf="pagination">
+                <pagination 
+                    [boundaryLinks]="true" 
+                    [totalItems]="pagination.totalItems"
+                    [itemsPerPage]="pagination.itemsPerPage"
+                    [(ngModel)]="pagination.currentPage"
+                    (pageChanged)="pageChange($event)"
+                    previousText="&lsaquo;" 
+                    nextText="&rsaquo;" 
+                    firstText="&laquo;" 
+                    lastText="&raquo;">
+                </pagination>
+            </div>
 
             <ng-template #deleteModal>
                 <div class="modal-header">
@@ -56,15 +72,20 @@
 
             <ng-template #receivedModal>
                 <div class="modal-header">
-                    <h4 class="modal-title pull-left">First modal</h4>
+                    <h4 class="modal-title pull-left">Check Receiver Detail</h4>
                     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                 <div class="modal-body text-center">
-                    <input type="text" class="form-control" id="receiver" placeholder="Receiver">                    
-                    <button type="button" class="btn btn-info mr-1" (click)="confirmReceiver()">Confirm</button>
-                    <button type="button" class="btn btn-outline-secondary" (click)="decline()">Close</button>
+                    <form  [formGroup]='receiveForm' (ngSubmit)="receiveForm.valid && confirmReceiver()" autocomplete="off">
+                        <app-text-input [formControl]='receiveForm.controls["receiver"]' [label]='"Received by"'></app-text-input>
+                    
+                        <div class="form-grou text-center mt-5">
+                            <button [disabled]="!receiveForm.valid" class="btn btn-success mr-2" type="submit">Submit</button>
+                            <button class="btn btn-outline-warning mr-2" (click)="decline()" type="button">Cancel</button>
+                        </div>
+                    </form>
                 </div>
             </ng-template>
         </div>

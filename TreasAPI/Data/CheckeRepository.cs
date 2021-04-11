@@ -6,6 +6,7 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using TreasAPI.Dto;
 using TreasAPI.Entities;
+using TreasAPI.Helpers;
 using TreasAPI.Interfaces;
 
 namespace TreasAPI.Data
@@ -45,11 +46,15 @@ namespace TreasAPI.Data
             return await _context.Checkes.FindAsync(id);
         }
 
-        public async Task<IEnumerable<CheckeDto>> GetCheckesAsync()
+        public async Task<PageList<CheckeDto>> GetCheckesAsync(CheckParams checkParams)
         {
-            return await _context.Checkes   
+            var query = _context.Checkes   
                 .ProjectTo<CheckeDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+                .AsNoTracking()
+                .OrderByDescending(x=>x.DateCreated)
+                .Where(x=> x.DateCreated >= checkParams.MinDate && x.DateCreated <= checkParams.MaxDate);
+
+                return await PageList<CheckeDto>.CreateAsync(query, checkParams.PageNumber, checkParams.PageSize);
         }
 
         public async Task<bool> SaveAllAsync()

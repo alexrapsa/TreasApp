@@ -1,1 +1,29 @@
-<p>report works!</p>
+<div class="row">
+    <div class="container mt-5">
+        <div style="background-color: blueviolet;">
+            <span>Filter</span>
+        </div>
+
+        <table class="table table-hover mt-5">
+            <thead>
+                <tr class="table-success">
+                    <th scope="col">Check Number</th>
+                    <th scope="col">Pay To</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Date Issued</th>
+                </tr>
+            </thead>
+            <tbody>`
+                <tr *ngFor="let checke of checkes$ | async">
+                    <th scope="row">{{checke.checkNumber}}</th>
+                    <td>{{checke.payTo}}</td>
+                    <td>{{checke.amount | number}}</td>
+                    <td>{{checke.receivedBy}}</td>
+                    <td>{{checke.dateIssued | date:"MM/dd/yy"}}</td>
+                   
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

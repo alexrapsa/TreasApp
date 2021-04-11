@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using TreasAPI.Data;
 using TreasAPI.Dto;
 using TreasAPI.Entities;
+using TreasAPI.Extensions;
+using TreasAPI.Helpers;
 using TreasAPI.Interfaces;
 
 namespace TreasAPI.Controllers
@@ -27,9 +29,12 @@ namespace TreasAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CheckeDto>>> GetCheckes()
+        public async Task<ActionResult<IEnumerable<CheckeDto>>> GetCheckes([FromQuery]CheckParams checkParams)
         {
-            var checkes = await _checkeRepository.GetCheckesAsync();
+            var checkes = await _checkeRepository.GetCheckesAsync(checkParams);
+
+            Response.AddPaginationHeader(checkes.CurrentPage, checkes.PageSize, checkes.TotalCount, checkes.TotalPages);
+
             return Ok(checkes);
         }
         [HttpGet("{checkeNumber}")]

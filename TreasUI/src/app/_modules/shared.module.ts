@@ -4,7 +4,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 
 @NgModule({
@@ -16,13 +16,15 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
       positionClass: 'toast-bottom-right'
     }),
     BsDatepickerModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    PaginationModule.forRoot()
   ],
   exports: [
     BsDropdownModule,
     ToastrModule,
     BsDatepickerModule,
-    ModalModule
+    ModalModule,
+    PaginationModule
   ]
 })
 export class SharedModule { }
