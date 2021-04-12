@@ -12,5 +12,6 @@ namespace TreasAPI.Entities
         public DateTime DateCreated { get; set; }
         public bool IsReceived { get; set; }
         public string ReceivedBy { get; set; }
+        public DateTime DateReceived { get; set; }
     }
 }

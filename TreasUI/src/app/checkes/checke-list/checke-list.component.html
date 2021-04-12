@@ -32,10 +32,12 @@
                         <td>{{checke.amount | number}}</td>
                         <td>{{checke.receivedBy}}</td>
                         <td>{{checke.dateIssued | date:"MM/dd/yy"}}</td>
-                        <td>
-                            <button class="btn" (click)="printCheck(checke.checkNumber)"><i class="fa fa-print"></i></button>
-                            <button class="btn" (click)="openModal(deleteModal, checke.checkNumber)"><i class="fa fa-trash-o"></i></button>
-                            <button class="btn" (click)="openReceiverModal(receivedModal, checke)"><i class="fa fa-paper-plane-o"></i></button>                            
+                        <td class="justify-content-center" style="width: 150px;">
+                            <button class="btn float-right" tooltip="Print Check" placement="top" (click)="printCheck(checke.checkNumber)"><i class="fa fa-print"></i></button>
+                            <div class="float-right" *ngIf="!checke.isReceived">
+                                <button class="btn" tooltip="Delete" placement="top" (click)="openModal(deleteModal, checke.checkNumber)"><i class="fa fa-trash-o"></i></button>
+                                <button class="btn" tooltip="Receive Check" placement="top"(click)="openReceiverModal(receivedModal, checke)"><i class="fa fa-paper-plane-o"></i></button>
+                            </div>                            
                         </td>
                     </tr>
                 </tbody>

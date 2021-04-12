@@ -61,6 +61,7 @@ export class CheckeListComponent implements OnInit {
   }
 
   cancelCreateMode(event: boolean) {
+    this.loadCheckes();
     this.createMode = event;
   }
 
@@ -110,4 +111,9 @@ export class CheckeListComponent implements OnInit {
     this.checkParams.pageNumber = event.page;
     this.loadCheckes();
   }
+
+  // getNowUTC() {
+  //   const now = new Date();
+  //   return new Date(now.getTime() + (now.getTimezoneOffset() * 60000));
+  // }
 }

@@ -70,6 +70,9 @@ namespace TreasAPI.Controllers
         {
             if (!await CheckeExist(checkeDto.CheckNumber)) return NotFound("Check not found");
 
+            if(checkeDto.ReceivedBy != null && checkeDto.DateReceived == DateTime.Parse("0001-01-01T00:00:00"))
+                checkeDto.DateReceived = DateTime.UtcNow;
+
             var check = await _checkeRepository.GetCheckeByCheckeNumberAsync(checkeDto.CheckNumber);
             
              _mapper.Map(checkeDto, check);

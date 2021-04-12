@@ -5,6 +5,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 
 @NgModule({
@@ -17,14 +18,16 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     }),
     BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    TooltipModule.forRoot()
   ],
   exports: [
     BsDropdownModule,
     ToastrModule,
     BsDatepickerModule,
     ModalModule,
-    PaginationModule
+    PaginationModule,
+    TooltipModule
   ]
 })
 export class SharedModule { }

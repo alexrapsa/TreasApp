@@ -15,8 +15,9 @@
         </div>
 
     </div>
-    <div class="float-right">
-        <button [useExistingCss]="true" printSectionId="print-area" ngxPrint class="btn btn-primary"><i
+    <div class="float-right in-line">
+        <button [useExistingCss]="true" printSectionId="print-area" ngxPrint class="btn btn-primary mr-2"><i
                 class="fa fa-print mr-1"></i>Print</button>
+        <button class="btn btn-outline-warning mr-2" (click)="cancel()" type="button">Cancel</button>
     </div>
 </div>

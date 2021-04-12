@@ -8,4 +8,5 @@ export interface Checke {
     isReceived: boolean;
     receivedBy: string;
     amountInWords: string;
+    dateReceived: Date;
 }

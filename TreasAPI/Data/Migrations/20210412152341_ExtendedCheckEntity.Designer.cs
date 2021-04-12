@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TreasAPI.Data;
 
 namespace TreasAPI.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210412152341_ExtendedCheckEntity")]
+    partial class ExtendedCheckEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,7 +62,7 @@ namespace TreasAPI.Data.Migrations
                     b.Property<DateTime>("DateIssued")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("DateReceived")
+                    b.Property<DateTime>("DateReceived")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsReceived")

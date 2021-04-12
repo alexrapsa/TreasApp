@@ -22,7 +22,7 @@ export class ReportComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.checkes$ = this.checkeService.getCheckes();
+    // this.checkes$ = this.checkeService.getCheckes();
   }
 
 
